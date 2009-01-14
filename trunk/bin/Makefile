@@ -21,7 +21,7 @@ refresh_htdocs:
 
 start_debug:
 	make refresh_htdocs
-	(cd ${googleapp_dir} && ./dev_appserver.py ${project_name}/)
+	(cd ${googleapp_dir} && ./dev_appserver.py ${project_name}/ --address=0.0.0.0)
 
 make_min_dir:
 	if [ -d ${ykjs_dir} ]; then make clean; fi
