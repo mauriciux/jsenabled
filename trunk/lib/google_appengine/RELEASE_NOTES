@@ -3,6 +3,81 @@ All rights reserved.
 
 App Engine SDK - Release Notes
 
+Version 1.2.0 - March 24, 2009
+==============================
+  - Cron support. Appcfg.py will upload the schedule to App Engine.
+      The dev_appserver console at /_ah/admin describes your schedule but does
+      not automatically run scheduled jobs. Learn more at
+      http://code.google.com/appengine/docs/python/config/cron.html
+  - New allow_skipped_files flag in dev_appserver to allow it to read files
+    which are not available in App Engine.
+        http://code.google.com/p/googleappengine/issues/detail?id=550
+
+Version 1.1.9 - February 2, 2009
+================================
+
+  - HTTP Request and Response limit raised to 10MB from 1MB.
+    Note that API call limits remain at 1MB.
+      http://code.google.com/p/googleappengine/issues/detail?id=78
+  - urllib and urllib2 now available, implemented using urlfetch.
+    Also adds additional stubs which may enable other modules.
+      http://code.google.com/p/googleappengine/issues/detail?id=61
+      http://code.google.com/p/googleappengine/issues/detail?id=68
+      http://code.google.com/p/googleappengine/issues/detail?id=572
+      http://code.google.com/p/googleappengine/issues/detail?id=821
+  - Early release of a new data bulk upload tool, bulkloader.py
+      http://code.google.com/appengine/docs/python/tools/uploadingdata.html
+  - New remote_api for datastore at google.appengine.ext.remote_api
+  - Single property descending indexes are automatically generated.
+  - Added db.Query support for IN and != operators.
+      http://code.google.com/p/googleappengine/issues/detail?id=751
+  - Fixed issue where gql date/time parsing could not handle Unicode strings.
+  - Fixed issue with db model instance key() returning the wrong key for
+    unsaved instances with parent as key
+      http://code.google.com/p/googleappengine/issues/detail?id=883
+  - New run_in_transaction_custom_retries method for datastore.
+  - Fixed issue with relative dev_appserver datastore and history paths.
+      http://code.google.com/p/googleappengine/issues/detail?id=845
+  - Static files and skipped files are not readable in dev_appserver, to match
+    the behavior on App Engine.
+      http://code.google.com/p/googleappengine/issues/detail?id=550
+  - Images API allows multiple transforms of the same type in one request. A
+    limit of 10 total transforms per request has been added.
+  - PIL import will work with both PIL.Image and Image.
+      http://code.google.com/p/googleappengine/issues/detail?id=929
+  - Fixed an issue with sending email in dev_appserver when the application
+    code changed.
+      http://code.google.com/p/googleappengine/issues/detail?id=182
+  - Memcache counters (incr/decr) do nothing on non positive integers to match
+    the behavior on App Engine.
+      http://code.google.com/p/googleappengine/issues/detail?id=918
+
+Version 1.1.8 - January 7, 2008
+=================================
+  - Skip_files RegexStr validator allows lists to for regex-ors.
+      http://code.google.com/p/googleappengine/issues/detail?id=81
+  - sys.path and sys.argv are no longer reset for each request.
+      http://code.google.com/p/googleappengine/issues/detail?id=772
+  - New ByteString data type for the datastore.  Indexed non-text short-blob.
+  - UserProperty now takes auto_current_user and auto_current_user_add
+    attributes.
+  - Support for polymorphic models and queries.
+  - db.Model.order() now supports __key__.
+      http://code.google.com/p/googleappengine/issues/detail?id=884
+  - Urlfetch no longer sets content-length: 0 when there is no body.
+      http://code.google.com/p/googleappengine/issues/detail?id=817
+  - Get height and width of an image via the Images API.
+      http://code.google.com/p/googleappengine/issues/detail?id=435
+  - Limit auto-Bcc of email sender to the case where the email sender is the
+    currently-logged-in user.
+  - Adds limit of 100 order/filters on datastore query size to the SDK.
+  - Fix unicode support for the bulkloader
+      http://code.google.com/p/googleappengine/issues/detail?id=157
+  - Bulkload.py from the appengine/tools directory to the appengine/ directory
+  - Modify webapp to use logging.exception instead of logging.error.
+  - Additional fixes to SDK sanitizing response headers to match production.
+      http://code.google.com/p/googleappengine/issues/detail?id=198
+
 Version 1.1.7 - November 20, 2008
 =================================
   - Fixed an issue with urlfetch response headers.

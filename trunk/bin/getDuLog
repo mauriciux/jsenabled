@@ -1,0 +1,3 @@
+#!/bin/bash
+
+make -s get_du_logs

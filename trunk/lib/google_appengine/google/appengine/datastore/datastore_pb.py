@@ -44,8 +44,9 @@ class Transaction(ProtocolBuffer.ProtocolMessage):
     self.handle_ = x
 
   def clear_handle(self):
-    self.has_handle_ = 0
-    self.handle_ = 0
+    if self.has_handle_:
+      self.has_handle_ = 0
+      self.handle_ = 0
 
   def has_handle(self): return self.has_handle_
 
@@ -59,12 +60,6 @@ class Transaction(ProtocolBuffer.ProtocolMessage):
     if self.has_handle_ != x.has_handle_: return 0
     if self.has_handle_ and self.handle_ != x.handle_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -152,8 +147,9 @@ class Query_Filter(ProtocolBuffer.ProtocolMessage):
     self.op_ = x
 
   def clear_op(self):
-    self.has_op_ = 0
-    self.op_ = 0
+    if self.has_op_:
+      self.has_op_ = 0
+      self.op_ = 0
 
   def has_op(self): return self.has_op_
 
@@ -187,12 +183,6 @@ class Query_Filter(ProtocolBuffer.ProtocolMessage):
     for e1, e2 in zip(self.property_, x.property_):
       if e1 != e2: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -281,8 +271,9 @@ class Query_Order(ProtocolBuffer.ProtocolMessage):
     self.property_ = x
 
   def clear_property(self):
-    self.has_property_ = 0
-    self.property_ = ""
+    if self.has_property_:
+      self.has_property_ = 0
+      self.property_ = ""
 
   def has_property(self): return self.has_property_
 
@@ -293,8 +284,9 @@ class Query_Order(ProtocolBuffer.ProtocolMessage):
     self.direction_ = x
 
   def clear_direction(self):
-    self.has_direction_ = 0
-    self.direction_ = 1
+    if self.has_direction_:
+      self.has_direction_ = 0
+      self.direction_ = 1
 
   def has_direction(self): return self.has_direction_
 
@@ -311,12 +303,6 @@ class Query_Order(ProtocolBuffer.ProtocolMessage):
     if self.has_direction_ != x.has_direction_: return 0
     if self.has_direction_ and self.direction_ != x.direction_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -409,8 +395,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
     self.app_ = x
 
   def clear_app(self):
-    self.has_app_ = 0
-    self.app_ = ""
+    if self.has_app_:
+      self.has_app_ = 0
+      self.app_ = ""
 
   def has_app(self): return self.has_app_
 
@@ -421,8 +408,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
     self.kind_ = x
 
   def clear_kind(self):
-    self.has_kind_ = 0
-    self.kind_ = ""
+    if self.has_kind_:
+      self.has_kind_ = 0
+      self.kind_ = ""
 
   def has_kind(self): return self.has_kind_
 
@@ -438,8 +426,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
   def mutable_ancestor(self): self.has_ancestor_ = 1; return self.ancestor()
 
   def clear_ancestor(self):
-    self.has_ancestor_ = 0;
-    if self.ancestor_ is not None: self.ancestor_.Clear()
+    if self.has_ancestor_:
+      self.has_ancestor_ = 0;
+      if self.ancestor_ is not None: self.ancestor_.Clear()
 
   def has_ancestor(self): return self.has_ancestor_
 
@@ -466,8 +455,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
     self.search_query_ = x
 
   def clear_search_query(self):
-    self.has_search_query_ = 0
-    self.search_query_ = ""
+    if self.has_search_query_:
+      self.has_search_query_ = 0
+      self.search_query_ = ""
 
   def has_search_query(self): return self.has_search_query_
 
@@ -494,8 +484,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
     self.hint_ = x
 
   def clear_hint(self):
-    self.has_hint_ = 0
-    self.hint_ = 0
+    if self.has_hint_:
+      self.has_hint_ = 0
+      self.hint_ = 0
 
   def has_hint(self): return self.has_hint_
 
@@ -506,8 +497,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
     self.offset_ = x
 
   def clear_offset(self):
-    self.has_offset_ = 0
-    self.offset_ = 0
+    if self.has_offset_:
+      self.has_offset_ = 0
+      self.offset_ = 0
 
   def has_offset(self): return self.has_offset_
 
@@ -518,8 +510,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
     self.limit_ = x
 
   def clear_limit(self):
-    self.has_limit_ = 0
-    self.limit_ = 0
+    if self.has_limit_:
+      self.has_limit_ = 0
+      self.limit_ = 0
 
   def has_limit(self): return self.has_limit_
 
@@ -546,8 +539,9 @@ class Query(ProtocolBuffer.ProtocolMessage):
     self.require_perfect_plan_ = x
 
   def clear_require_perfect_plan(self):
-    self.has_require_perfect_plan_ = 0
-    self.require_perfect_plan_ = 0
+    if self.has_require_perfect_plan_:
+      self.has_require_perfect_plan_ = 0
+      self.require_perfect_plan_ = 0
 
   def has_require_perfect_plan(self): return self.has_require_perfect_plan_
 
@@ -594,12 +588,6 @@ class Query(ProtocolBuffer.ProtocolMessage):
     if self.has_require_perfect_plan_ != x.has_require_perfect_plan_: return 0
     if self.has_require_perfect_plan_ and self.require_perfect_plan_ != x.require_perfect_plan_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -875,8 +863,9 @@ class QueryExplanation(ProtocolBuffer.ProtocolMessage):
     self.native_ancestor_ = x
 
   def clear_native_ancestor(self):
-    self.has_native_ancestor_ = 0
-    self.native_ancestor_ = 0
+    if self.has_native_ancestor_:
+      self.has_native_ancestor_ = 0
+      self.native_ancestor_ = 0
 
   def has_native_ancestor(self): return self.has_native_ancestor_
 
@@ -903,8 +892,9 @@ class QueryExplanation(ProtocolBuffer.ProtocolMessage):
     self.native_offset_ = x
 
   def clear_native_offset(self):
-    self.has_native_offset_ = 0
-    self.native_offset_ = 0
+    if self.has_native_offset_:
+      self.has_native_offset_ = 0
+      self.native_offset_ = 0
 
   def has_native_offset(self): return self.has_native_offset_
 
@@ -915,8 +905,9 @@ class QueryExplanation(ProtocolBuffer.ProtocolMessage):
     self.native_limit_ = x
 
   def clear_native_limit(self):
-    self.has_native_limit_ = 0
-    self.native_limit_ = 0
+    if self.has_native_limit_:
+      self.has_native_limit_ = 0
+      self.native_limit_ = 0
 
   def has_native_limit(self): return self.has_native_limit_
 
@@ -940,12 +931,6 @@ class QueryExplanation(ProtocolBuffer.ProtocolMessage):
     if self.has_native_limit_ != x.has_native_limit_: return 0
     if self.has_native_limit_ and self.native_limit_ != x.native_limit_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -1061,8 +1046,9 @@ class Cursor(ProtocolBuffer.ProtocolMessage):
     self.cursor_ = x
 
   def clear_cursor(self):
-    self.has_cursor_ = 0
-    self.cursor_ = 0
+    if self.has_cursor_:
+      self.has_cursor_ = 0
+      self.cursor_ = 0
 
   def has_cursor(self): return self.has_cursor_
 
@@ -1076,12 +1062,6 @@ class Cursor(ProtocolBuffer.ProtocolMessage):
     if self.has_cursor_ != x.has_cursor_: return 0
     if self.has_cursor_ and self.cursor_ != x.cursor_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -1164,12 +1144,6 @@ class Error(ProtocolBuffer.ProtocolMessage):
     if x is self: return 1
     return 1
 
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
-
   def IsInitialized(self, debug_strs=None):
     initialized = 1
     return initialized
@@ -1202,6 +1176,84 @@ class Error(ProtocolBuffer.ProtocolMessage):
 
   _TYPES = (
    ProtocolBuffer.Encoder.NUMERIC,
+  )
+
+  _STYLE = """"""
+  _STYLE_CONTENT_TYPE = """"""
+class Cost(ProtocolBuffer.ProtocolMessage):
+  has_index_writes_ = 0
+  index_writes_ = 0
+
+  def __init__(self, contents=None):
+    if contents is not None: self.MergeFromString(contents)
+
+  def index_writes(self): return self.index_writes_
+
+  def set_index_writes(self, x):
+    self.has_index_writes_ = 1
+    self.index_writes_ = x
+
+  def clear_index_writes(self):
+    if self.has_index_writes_:
+      self.has_index_writes_ = 0
+      self.index_writes_ = 0
+
+  def has_index_writes(self): return self.has_index_writes_
+
+
+  def MergeFrom(self, x):
+    assert x is not self
+    if (x.has_index_writes()): self.set_index_writes(x.index_writes())
+
+  def Equals(self, x):
+    if x is self: return 1
+    if self.has_index_writes_ != x.has_index_writes_: return 0
+    if self.has_index_writes_ and self.index_writes_ != x.index_writes_: return 0
+    return 1
+
+  def IsInitialized(self, debug_strs=None):
+    initialized = 1
+    return initialized
+
+  def ByteSize(self):
+    n = 0
+    if (self.has_index_writes_): n += 1 + self.lengthVarInt64(self.index_writes_)
+    return n + 0
+
+  def Clear(self):
+    self.clear_index_writes()
+
+  def OutputUnchecked(self, out):
+    if (self.has_index_writes_):
+      out.putVarInt32(8)
+      out.putVarInt32(self.index_writes_)
+
+  def TryMerge(self, d):
+    while d.avail() > 0:
+      tt = d.getVarInt32()
+      if tt == 8:
+        self.set_index_writes(d.getVarInt32())
+        continue
+      if (tt == 0): raise ProtocolBuffer.ProtocolBufferDecodeError
+      d.skipData(tt)
+
+
+  def __str__(self, prefix="", printElemNumber=0):
+    res=""
+    if self.has_index_writes_: res+=prefix+("index_writes: %s\n" % self.DebugFormatInt32(self.index_writes_))
+    return res
+
+  kindex_writes = 1
+
+  _TEXT = (
+   "ErrorCode",
+   "index_writes",
+  )
+
+  _TYPES = (
+   ProtocolBuffer.Encoder.NUMERIC,
+   ProtocolBuffer.Encoder.NUMERIC,
+
   )
 
   _STYLE = """"""
@@ -1243,8 +1295,9 @@ class GetRequest(ProtocolBuffer.ProtocolMessage):
   def mutable_transaction(self): self.has_transaction_ = 1; return self.transaction()
 
   def clear_transaction(self):
-    self.has_transaction_ = 0;
-    if self.transaction_ is not None: self.transaction_.Clear()
+    if self.has_transaction_:
+      self.has_transaction_ = 0;
+      if self.transaction_ is not None: self.transaction_.Clear()
 
   def has_transaction(self): return self.has_transaction_
 
@@ -1262,12 +1315,6 @@ class GetRequest(ProtocolBuffer.ProtocolMessage):
     if self.has_transaction_ != x.has_transaction_: return 0
     if self.has_transaction_ and self.transaction_ != x.transaction_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -1371,8 +1418,9 @@ class GetResponse_Entity(ProtocolBuffer.ProtocolMessage):
   def mutable_entity(self): self.has_entity_ = 1; return self.entity()
 
   def clear_entity(self):
-    self.has_entity_ = 0;
-    if self.entity_ is not None: self.entity_.Clear()
+    if self.has_entity_:
+      self.has_entity_ = 0;
+      if self.entity_ is not None: self.entity_.Clear()
 
   def has_entity(self): return self.has_entity_
 
@@ -1386,12 +1434,6 @@ class GetResponse_Entity(ProtocolBuffer.ProtocolMessage):
     if self.has_entity_ != x.has_entity_: return 0
     if self.has_entity_ and self.entity_ != x.entity_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -1468,12 +1510,6 @@ class GetResponse(ProtocolBuffer.ProtocolMessage):
       if e1 != e2: return 0
     return 1
 
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
-
   def IsInitialized(self, debug_strs=None):
     initialized = 1
     for p in self.entity_:
@@ -1539,6 +1575,8 @@ class GetResponse(ProtocolBuffer.ProtocolMessage):
 class PutRequest(ProtocolBuffer.ProtocolMessage):
   has_transaction_ = 0
   transaction_ = None
+  has_trusted_ = 0
+  trusted_ = 0
 
   def __init__(self, contents=None):
     self.entity_ = []
@@ -1574,8 +1612,9 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
   def mutable_transaction(self): self.has_transaction_ = 1; return self.transaction()
 
   def clear_transaction(self):
-    self.has_transaction_ = 0;
-    if self.transaction_ is not None: self.transaction_.Clear()
+    if self.has_transaction_:
+      self.has_transaction_ = 0;
+      if self.transaction_ is not None: self.transaction_.Clear()
 
   def has_transaction(self): return self.has_transaction_
 
@@ -1595,12 +1634,26 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
 
   def clear_composite_index(self):
     self.composite_index_ = []
+  def trusted(self): return self.trusted_
+
+  def set_trusted(self, x):
+    self.has_trusted_ = 1
+    self.trusted_ = x
+
+  def clear_trusted(self):
+    if self.has_trusted_:
+      self.has_trusted_ = 0
+      self.trusted_ = 0
+
+  def has_trusted(self): return self.has_trusted_
+
 
   def MergeFrom(self, x):
     assert x is not self
     for i in xrange(x.entity_size()): self.add_entity().CopyFrom(x.entity(i))
     if (x.has_transaction()): self.mutable_transaction().MergeFrom(x.transaction())
     for i in xrange(x.composite_index_size()): self.add_composite_index().CopyFrom(x.composite_index(i))
+    if (x.has_trusted()): self.set_trusted(x.trusted())
 
   def Equals(self, x):
     if x is self: return 1
@@ -1612,13 +1665,9 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
     if len(self.composite_index_) != len(x.composite_index_): return 0
     for e1, e2 in zip(self.composite_index_, x.composite_index_):
       if e1 != e2: return 0
+    if self.has_trusted_ != x.has_trusted_: return 0
+    if self.has_trusted_ and self.trusted_ != x.trusted_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -1636,12 +1685,14 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
     if (self.has_transaction_): n += 1 + self.lengthString(self.transaction_.ByteSize())
     n += 1 * len(self.composite_index_)
     for i in xrange(len(self.composite_index_)): n += self.lengthString(self.composite_index_[i].ByteSize())
+    if (self.has_trusted_): n += 2
     return n + 0
 
   def Clear(self):
     self.clear_entity()
     self.clear_transaction()
     self.clear_composite_index()
+    self.clear_trusted()
 
   def OutputUnchecked(self, out):
     for i in xrange(len(self.entity_)):
@@ -1656,6 +1707,9 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
       out.putVarInt32(26)
       out.putVarInt32(self.composite_index_[i].ByteSize())
       self.composite_index_[i].OutputUnchecked(out)
+    if (self.has_trusted_):
+      out.putVarInt32(32)
+      out.putBoolean(self.trusted_)
 
   def TryMerge(self, d):
     while d.avail() > 0:
@@ -1677,6 +1731,9 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
         tmp = ProtocolBuffer.Decoder(d.buffer(), d.pos(), d.pos() + length)
         d.skip(length)
         self.add_composite_index().TryMerge(tmp)
+        continue
+      if tt == 32:
+        self.set_trusted(d.getBoolean())
         continue
       if (tt == 0): raise ProtocolBuffer.ProtocolBufferDecodeError
       d.skipData(tt)
@@ -1704,17 +1761,20 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
       res+=e.__str__(prefix + "  ", printElemNumber)
       res+=prefix+">\n"
       cnt+=1
+    if self.has_trusted_: res+=prefix+("trusted: %s\n" % self.DebugFormatBool(self.trusted_))
     return res
 
   kentity = 1
   ktransaction = 2
   kcomposite_index = 3
+  ktrusted = 4
 
   _TEXT = (
    "ErrorCode",
    "entity",
    "transaction",
    "composite_index",
+   "trusted",
   )
 
   _TYPES = (
@@ -1725,14 +1785,19 @@ class PutRequest(ProtocolBuffer.ProtocolMessage):
 
    ProtocolBuffer.Encoder.STRING,
 
+   ProtocolBuffer.Encoder.NUMERIC,
+
   )
 
   _STYLE = """"""
   _STYLE_CONTENT_TYPE = """"""
 class PutResponse(ProtocolBuffer.ProtocolMessage):
+  has_cost_ = 0
+  cost_ = None
 
   def __init__(self, contents=None):
     self.key_ = []
+    self.lazy_init_lock_ = thread.allocate_lock()
     if contents is not None: self.MergeFromString(contents)
 
   def key_size(self): return len(self.key_)
@@ -1751,44 +1816,66 @@ class PutResponse(ProtocolBuffer.ProtocolMessage):
 
   def clear_key(self):
     self.key_ = []
+  def cost(self):
+    if self.cost_ is None:
+      self.lazy_init_lock_.acquire()
+      try:
+        if self.cost_ is None: self.cost_ = Cost()
+      finally:
+        self.lazy_init_lock_.release()
+    return self.cost_
+
+  def mutable_cost(self): self.has_cost_ = 1; return self.cost()
+
+  def clear_cost(self):
+    if self.has_cost_:
+      self.has_cost_ = 0;
+      if self.cost_ is not None: self.cost_.Clear()
+
+  def has_cost(self): return self.has_cost_
+
 
   def MergeFrom(self, x):
     assert x is not self
     for i in xrange(x.key_size()): self.add_key().CopyFrom(x.key(i))
+    if (x.has_cost()): self.mutable_cost().MergeFrom(x.cost())
 
   def Equals(self, x):
     if x is self: return 1
     if len(self.key_) != len(x.key_): return 0
     for e1, e2 in zip(self.key_, x.key_):
       if e1 != e2: return 0
+    if self.has_cost_ != x.has_cost_: return 0
+    if self.has_cost_ and self.cost_ != x.cost_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
     for p in self.key_:
       if not p.IsInitialized(debug_strs): initialized=0
+    if (self.has_cost_ and not self.cost_.IsInitialized(debug_strs)): initialized = 0
     return initialized
 
   def ByteSize(self):
     n = 0
     n += 1 * len(self.key_)
     for i in xrange(len(self.key_)): n += self.lengthString(self.key_[i].ByteSize())
+    if (self.has_cost_): n += 1 + self.lengthString(self.cost_.ByteSize())
     return n + 0
 
   def Clear(self):
     self.clear_key()
+    self.clear_cost()
 
   def OutputUnchecked(self, out):
     for i in xrange(len(self.key_)):
       out.putVarInt32(10)
       out.putVarInt32(self.key_[i].ByteSize())
       self.key_[i].OutputUnchecked(out)
+    if (self.has_cost_):
+      out.putVarInt32(18)
+      out.putVarInt32(self.cost_.ByteSize())
+      self.cost_.OutputUnchecked(out)
 
   def TryMerge(self, d):
     while d.avail() > 0:
@@ -1798,6 +1885,12 @@ class PutResponse(ProtocolBuffer.ProtocolMessage):
         tmp = ProtocolBuffer.Decoder(d.buffer(), d.pos(), d.pos() + length)
         d.skip(length)
         self.add_key().TryMerge(tmp)
+        continue
+      if tt == 18:
+        length = d.getVarInt32()
+        tmp = ProtocolBuffer.Decoder(d.buffer(), d.pos(), d.pos() + length)
+        d.skip(length)
+        self.mutable_cost().TryMerge(tmp)
         continue
       if (tt == 0): raise ProtocolBuffer.ProtocolBufferDecodeError
       d.skipData(tt)
@@ -1813,17 +1906,25 @@ class PutResponse(ProtocolBuffer.ProtocolMessage):
       res+=e.__str__(prefix + "  ", printElemNumber)
       res+=prefix+">\n"
       cnt+=1
+    if self.has_cost_:
+      res+=prefix+"cost <\n"
+      res+=self.cost_.__str__(prefix + "  ", printElemNumber)
+      res+=prefix+">\n"
     return res
 
   kkey = 1
+  kcost = 2
 
   _TEXT = (
    "ErrorCode",
    "key",
+   "cost",
   )
 
   _TYPES = (
    ProtocolBuffer.Encoder.NUMERIC,
+   ProtocolBuffer.Encoder.STRING,
+
    ProtocolBuffer.Encoder.STRING,
 
   )
@@ -1833,6 +1934,8 @@ class PutResponse(ProtocolBuffer.ProtocolMessage):
 class DeleteRequest(ProtocolBuffer.ProtocolMessage):
   has_transaction_ = 0
   transaction_ = None
+  has_trusted_ = 0
+  trusted_ = 0
 
   def __init__(self, contents=None):
     self.key_ = []
@@ -1867,16 +1970,31 @@ class DeleteRequest(ProtocolBuffer.ProtocolMessage):
   def mutable_transaction(self): self.has_transaction_ = 1; return self.transaction()
 
   def clear_transaction(self):
-    self.has_transaction_ = 0;
-    if self.transaction_ is not None: self.transaction_.Clear()
+    if self.has_transaction_:
+      self.has_transaction_ = 0;
+      if self.transaction_ is not None: self.transaction_.Clear()
 
   def has_transaction(self): return self.has_transaction_
+
+  def trusted(self): return self.trusted_
+
+  def set_trusted(self, x):
+    self.has_trusted_ = 1
+    self.trusted_ = x
+
+  def clear_trusted(self):
+    if self.has_trusted_:
+      self.has_trusted_ = 0
+      self.trusted_ = 0
+
+  def has_trusted(self): return self.has_trusted_
 
 
   def MergeFrom(self, x):
     assert x is not self
     for i in xrange(x.key_size()): self.add_key().CopyFrom(x.key(i))
     if (x.has_transaction()): self.mutable_transaction().MergeFrom(x.transaction())
+    if (x.has_trusted()): self.set_trusted(x.trusted())
 
   def Equals(self, x):
     if x is self: return 1
@@ -1885,13 +2003,9 @@ class DeleteRequest(ProtocolBuffer.ProtocolMessage):
       if e1 != e2: return 0
     if self.has_transaction_ != x.has_transaction_: return 0
     if self.has_transaction_ and self.transaction_ != x.transaction_: return 0
+    if self.has_trusted_ != x.has_trusted_: return 0
+    if self.has_trusted_ and self.trusted_ != x.trusted_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -1905,13 +2019,18 @@ class DeleteRequest(ProtocolBuffer.ProtocolMessage):
     n += 1 * len(self.key_)
     for i in xrange(len(self.key_)): n += self.lengthString(self.key_[i].ByteSize())
     if (self.has_transaction_): n += 1 + self.lengthString(self.transaction_.ByteSize())
+    if (self.has_trusted_): n += 2
     return n + 0
 
   def Clear(self):
     self.clear_key()
     self.clear_transaction()
+    self.clear_trusted()
 
   def OutputUnchecked(self, out):
+    if (self.has_trusted_):
+      out.putVarInt32(32)
+      out.putBoolean(self.trusted_)
     if (self.has_transaction_):
       out.putVarInt32(42)
       out.putVarInt32(self.transaction_.ByteSize())
@@ -1924,6 +2043,9 @@ class DeleteRequest(ProtocolBuffer.ProtocolMessage):
   def TryMerge(self, d):
     while d.avail() > 0:
       tt = d.getVarInt32()
+      if tt == 32:
+        self.set_trusted(d.getBoolean())
+        continue
       if tt == 42:
         length = d.getVarInt32()
         tmp = ProtocolBuffer.Decoder(d.buffer(), d.pos(), d.pos() + length)
@@ -1954,17 +2076,19 @@ class DeleteRequest(ProtocolBuffer.ProtocolMessage):
       res+=prefix+"transaction <\n"
       res+=self.transaction_.__str__(prefix + "  ", printElemNumber)
       res+=prefix+">\n"
+    if self.has_trusted_: res+=prefix+("trusted: %s\n" % self.DebugFormatBool(self.trusted_))
     return res
 
   kkey = 6
   ktransaction = 5
+  ktrusted = 4
 
   _TEXT = (
    "ErrorCode",
    None,
    None,
    None,
-   None,
+   "trusted",
    "transaction",
    "key",
   )
@@ -1977,10 +2101,102 @@ class DeleteRequest(ProtocolBuffer.ProtocolMessage):
 
    ProtocolBuffer.Encoder.MAX_TYPE,
 
-   ProtocolBuffer.Encoder.MAX_TYPE,
+   ProtocolBuffer.Encoder.NUMERIC,
 
    ProtocolBuffer.Encoder.STRING,
 
+   ProtocolBuffer.Encoder.STRING,
+
+  )
+
+  _STYLE = """"""
+  _STYLE_CONTENT_TYPE = """"""
+class DeleteResponse(ProtocolBuffer.ProtocolMessage):
+  has_cost_ = 0
+  cost_ = None
+
+  def __init__(self, contents=None):
+    self.lazy_init_lock_ = thread.allocate_lock()
+    if contents is not None: self.MergeFromString(contents)
+
+  def cost(self):
+    if self.cost_ is None:
+      self.lazy_init_lock_.acquire()
+      try:
+        if self.cost_ is None: self.cost_ = Cost()
+      finally:
+        self.lazy_init_lock_.release()
+    return self.cost_
+
+  def mutable_cost(self): self.has_cost_ = 1; return self.cost()
+
+  def clear_cost(self):
+    if self.has_cost_:
+      self.has_cost_ = 0;
+      if self.cost_ is not None: self.cost_.Clear()
+
+  def has_cost(self): return self.has_cost_
+
+
+  def MergeFrom(self, x):
+    assert x is not self
+    if (x.has_cost()): self.mutable_cost().MergeFrom(x.cost())
+
+  def Equals(self, x):
+    if x is self: return 1
+    if self.has_cost_ != x.has_cost_: return 0
+    if self.has_cost_ and self.cost_ != x.cost_: return 0
+    return 1
+
+  def IsInitialized(self, debug_strs=None):
+    initialized = 1
+    if (self.has_cost_ and not self.cost_.IsInitialized(debug_strs)): initialized = 0
+    return initialized
+
+  def ByteSize(self):
+    n = 0
+    if (self.has_cost_): n += 1 + self.lengthString(self.cost_.ByteSize())
+    return n + 0
+
+  def Clear(self):
+    self.clear_cost()
+
+  def OutputUnchecked(self, out):
+    if (self.has_cost_):
+      out.putVarInt32(10)
+      out.putVarInt32(self.cost_.ByteSize())
+      self.cost_.OutputUnchecked(out)
+
+  def TryMerge(self, d):
+    while d.avail() > 0:
+      tt = d.getVarInt32()
+      if tt == 10:
+        length = d.getVarInt32()
+        tmp = ProtocolBuffer.Decoder(d.buffer(), d.pos(), d.pos() + length)
+        d.skip(length)
+        self.mutable_cost().TryMerge(tmp)
+        continue
+      if (tt == 0): raise ProtocolBuffer.ProtocolBufferDecodeError
+      d.skipData(tt)
+
+
+  def __str__(self, prefix="", printElemNumber=0):
+    res=""
+    if self.has_cost_:
+      res+=prefix+"cost <\n"
+      res+=self.cost_.__str__(prefix + "  ", printElemNumber)
+      res+=prefix+">\n"
+    return res
+
+  kcost = 1
+
+  _TEXT = (
+   "ErrorCode",
+   "cost",
+  )
+
+  _TYPES = (
+   ProtocolBuffer.Encoder.NUMERIC,
    ProtocolBuffer.Encoder.STRING,
 
   )
@@ -2011,8 +2227,9 @@ class NextRequest(ProtocolBuffer.ProtocolMessage):
     self.count_ = x
 
   def clear_count(self):
-    self.has_count_ = 0
-    self.count_ = 1
+    if self.has_count_:
+      self.has_count_ = 0
+      self.count_ = 1
 
   def has_count(self): return self.has_count_
 
@@ -2029,12 +2246,6 @@ class NextRequest(ProtocolBuffer.ProtocolMessage):
     if self.has_count_ != x.has_count_: return 0
     if self.has_count_ and self.count_ != x.count_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -2130,8 +2341,9 @@ class QueryResult(ProtocolBuffer.ProtocolMessage):
   def mutable_cursor(self): self.has_cursor_ = 1; return self.cursor()
 
   def clear_cursor(self):
-    self.has_cursor_ = 0;
-    if self.cursor_ is not None: self.cursor_.Clear()
+    if self.has_cursor_:
+      self.has_cursor_ = 0;
+      if self.cursor_ is not None: self.cursor_.Clear()
 
   def has_cursor(self): return self.has_cursor_
 
@@ -2158,8 +2370,9 @@ class QueryResult(ProtocolBuffer.ProtocolMessage):
     self.more_results_ = x
 
   def clear_more_results(self):
-    self.has_more_results_ = 0
-    self.more_results_ = 0
+    if self.has_more_results_:
+      self.has_more_results_ = 0
+      self.more_results_ = 0
 
   def has_more_results(self): return self.has_more_results_
 
@@ -2180,12 +2393,6 @@ class QueryResult(ProtocolBuffer.ProtocolMessage):
     if self.has_more_results_ != x.has_more_results_: return 0
     if self.has_more_results_ and self.more_results_ != x.more_results_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -2318,12 +2525,6 @@ class Schema(ProtocolBuffer.ProtocolMessage):
       if e1 != e2: return 0
     return 1
 
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
-
   def IsInitialized(self, debug_strs=None):
     initialized = 1
     for p in self.kind_:
@@ -2419,12 +2620,6 @@ class CompositeIndices(ProtocolBuffer.ProtocolMessage):
       if e1 != e2: return 0
     return 1
 
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
-
   def IsInitialized(self, debug_strs=None):
     initialized = 1
     for p in self.index_:
@@ -2486,5 +2681,97 @@ class CompositeIndices(ProtocolBuffer.ProtocolMessage):
 
   _STYLE = """"""
   _STYLE_CONTENT_TYPE = """"""
+class CommitResponse(ProtocolBuffer.ProtocolMessage):
+  has_cost_ = 0
+  cost_ = None
 
-__all__ = ['Transaction','Query','Query_Filter','Query_Order','QueryExplanation','Cursor','Error','GetRequest','GetResponse','GetResponse_Entity','PutRequest','PutResponse','DeleteRequest','NextRequest','QueryResult','Schema','CompositeIndices']
+  def __init__(self, contents=None):
+    self.lazy_init_lock_ = thread.allocate_lock()
+    if contents is not None: self.MergeFromString(contents)
+
+  def cost(self):
+    if self.cost_ is None:
+      self.lazy_init_lock_.acquire()
+      try:
+        if self.cost_ is None: self.cost_ = Cost()
+      finally:
+        self.lazy_init_lock_.release()
+    return self.cost_
+
+  def mutable_cost(self): self.has_cost_ = 1; return self.cost()
+
+  def clear_cost(self):
+    if self.has_cost_:
+      self.has_cost_ = 0;
+      if self.cost_ is not None: self.cost_.Clear()
+
+  def has_cost(self): return self.has_cost_
+
+
+  def MergeFrom(self, x):
+    assert x is not self
+    if (x.has_cost()): self.mutable_cost().MergeFrom(x.cost())
+
+  def Equals(self, x):
+    if x is self: return 1
+    if self.has_cost_ != x.has_cost_: return 0
+    if self.has_cost_ and self.cost_ != x.cost_: return 0
+    return 1
+
+  def IsInitialized(self, debug_strs=None):
+    initialized = 1
+    if (self.has_cost_ and not self.cost_.IsInitialized(debug_strs)): initialized = 0
+    return initialized
+
+  def ByteSize(self):
+    n = 0
+    if (self.has_cost_): n += 1 + self.lengthString(self.cost_.ByteSize())
+    return n + 0
+
+  def Clear(self):
+    self.clear_cost()
+
+  def OutputUnchecked(self, out):
+    if (self.has_cost_):
+      out.putVarInt32(10)
+      out.putVarInt32(self.cost_.ByteSize())
+      self.cost_.OutputUnchecked(out)
+
+  def TryMerge(self, d):
+    while d.avail() > 0:
+      tt = d.getVarInt32()
+      if tt == 10:
+        length = d.getVarInt32()
+        tmp = ProtocolBuffer.Decoder(d.buffer(), d.pos(), d.pos() + length)
+        d.skip(length)
+        self.mutable_cost().TryMerge(tmp)
+        continue
+      if (tt == 0): raise ProtocolBuffer.ProtocolBufferDecodeError
+      d.skipData(tt)
+
+
+  def __str__(self, prefix="", printElemNumber=0):
+    res=""
+    if self.has_cost_:
+      res+=prefix+"cost <\n"
+      res+=self.cost_.__str__(prefix + "  ", printElemNumber)
+      res+=prefix+">\n"
+    return res
+
+  kcost = 1
+
+  _TEXT = (
+   "ErrorCode",
+   "cost",
+  )
+
+  _TYPES = (
+   ProtocolBuffer.Encoder.NUMERIC,
+   ProtocolBuffer.Encoder.STRING,
+
+  )
+
+  _STYLE = """"""
+  _STYLE_CONTENT_TYPE = """"""
+
+__all__ = ['Transaction','Query','Query_Filter','Query_Order','QueryExplanation','Cursor','Error','Cost','GetRequest','GetResponse','GetResponse_Entity','PutRequest','PutResponse','DeleteRequest','DeleteResponse','NextRequest','QueryResult','Schema','CompositeIndices','CommitResponse']
