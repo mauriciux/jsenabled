@@ -2,11 +2,18 @@ project_name=jsenabled
 cur_dir=$(shell pwd)
 lib_dir=$(shell (cd ../lib && pwd))
 src_dir=$(shell (cd ../src && pwd))
+du_dir=$(shell (cd ../src/double-underscore && pwd))
 googleapp_dir=${lib_dir}/google_appengine
 ga_htdocs_dir=${googleapp_dir}/${project_name}
 source_svn=https://jsenabled.googlecode.com/svn/trunk/
 
 empty:
+
+update_du:
+	(cd ${googleapp_dir} && ./appcfg.py update ${du_dir})
+
+get_du_logs:
+	(cd ${googleapp_dir} && ./appcfg.py request_logs ${du_dir} ../../du_logs.txt)
 
 clean_htdocs:
 	rm -rf ${ga_htdocs_dir};

@@ -36,8 +36,9 @@ class StringProto(ProtocolBuffer.ProtocolMessage):
     self.value_ = x
 
   def clear_value(self):
-    self.has_value_ = 0
-    self.value_ = ""
+    if self.has_value_:
+      self.has_value_ = 0
+      self.value_ = ""
 
   def has_value(self): return self.has_value_
 
@@ -51,12 +52,6 @@ class StringProto(ProtocolBuffer.ProtocolMessage):
     if self.has_value_ != x.has_value_: return 0
     if self.has_value_ and self.value_ != x.value_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -122,8 +117,9 @@ class Integer32Proto(ProtocolBuffer.ProtocolMessage):
     self.value_ = x
 
   def clear_value(self):
-    self.has_value_ = 0
-    self.value_ = 0
+    if self.has_value_:
+      self.has_value_ = 0
+      self.value_ = 0
 
   def has_value(self): return self.has_value_
 
@@ -137,12 +133,6 @@ class Integer32Proto(ProtocolBuffer.ProtocolMessage):
     if self.has_value_ != x.has_value_: return 0
     if self.has_value_ and self.value_ != x.value_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -208,8 +198,9 @@ class Integer64Proto(ProtocolBuffer.ProtocolMessage):
     self.value_ = x
 
   def clear_value(self):
-    self.has_value_ = 0
-    self.value_ = 0
+    if self.has_value_:
+      self.has_value_ = 0
+      self.value_ = 0
 
   def has_value(self): return self.has_value_
 
@@ -223,12 +214,6 @@ class Integer64Proto(ProtocolBuffer.ProtocolMessage):
     if self.has_value_ != x.has_value_: return 0
     if self.has_value_ and self.value_ != x.value_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -294,8 +279,9 @@ class BoolProto(ProtocolBuffer.ProtocolMessage):
     self.value_ = x
 
   def clear_value(self):
-    self.has_value_ = 0
-    self.value_ = 0
+    if self.has_value_:
+      self.has_value_ = 0
+      self.value_ = 0
 
   def has_value(self): return self.has_value_
 
@@ -309,12 +295,6 @@ class BoolProto(ProtocolBuffer.ProtocolMessage):
     if self.has_value_ != x.has_value_: return 0
     if self.has_value_ and self.value_ != x.value_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -379,8 +359,9 @@ class DoubleProto(ProtocolBuffer.ProtocolMessage):
     self.value_ = x
 
   def clear_value(self):
-    self.has_value_ = 0
-    self.value_ = 0.0
+    if self.has_value_:
+      self.has_value_ = 0
+      self.value_ = 0.0
 
   def has_value(self): return self.has_value_
 
@@ -394,12 +375,6 @@ class DoubleProto(ProtocolBuffer.ProtocolMessage):
     if self.has_value_ != x.has_value_: return 0
     if self.has_value_ and self.value_ != x.value_: return 0
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1
@@ -463,12 +438,6 @@ class VoidProto(ProtocolBuffer.ProtocolMessage):
   def Equals(self, x):
     if x is self: return 1
     return 1
-
-  def __eq__(self, other):
-    return (other is not None) and (other.__class__ == self.__class__) and self.Equals(other)
-
-  def __ne__(self, other):
-    return not (self == other)
 
   def IsInitialized(self, debug_strs=None):
     initialized = 1

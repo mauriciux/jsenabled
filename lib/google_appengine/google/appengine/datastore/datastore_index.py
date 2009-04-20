@@ -328,9 +328,13 @@ def CompositeIndexForQuery(query):
     else:
       props.append((prop_name, ASCENDING))
 
-  if (kind and not ancestor and
-      (not props or (len(props) == 1 and props[0][1] == ASCENDING))):
+  if kind and not ancestor and len(props) <= 1:
     required = False
+
+    if props:
+      prop, dir = props[0]
+      if prop in datastore_types._SPECIAL_PROPERTIES and dir is DESCENDING:
+        required = True
 
   unique_names = set(name for name, dir in props)
   if len(props) > 1 and len(unique_names) == 1:
