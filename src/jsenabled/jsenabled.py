@@ -6,22 +6,34 @@
 
 # -- MODULES IMPORT --
 
-# Python system module
+# Python system modules
 
-# Request handler modules provided by GAE
+# Modules provided by GAE
 import wsgiref.handlers
 from google.appengine.ext import webapp
 
-# Database Model module
-from lib.datadef import *
+# Custom library modules 
+from lib import config, service, pocket, datadef
+
+# -- CUSTOM CLASS DEFINITION --
+class GeneralPage(webapp.RequestHandler):
+    pass
 
 # -- PAGE HANDLERS --
-class MainPage(webapp.RequestHandler):
+class AdminPage(GeneralPage):
     def get(self):
-        _test=LatestArticle()
-        _test.title = "Let's go!"
-        _test.id_num = 1234
-        self.response.out.write(_test.to_xml())
+        self.response.out.write(pocket.render_template(config.TEMPLATE_PATH+'admin.html'))
+    def post(self):
+        if self.request.get('actiontype') == "1":
+            service.add_to(datadef.Tag, name=self.request.get('name'), description=self.request.get('description'), owner=[self.request.get('owner')], type=int(self.request.get('type')))
+        elif self.request.get('actiontype') == "2":
+            service.delete_from(datadef.Tag, name=self.request.get('name'))
+
+class MainPage(GeneralPage):
+    def get(self):
+        _tags = service.select_from(datadef.Tag, all=True)
+        for _tag in _tags:
+            self.response.out.write(_tag.to_xml())
     def post(self):
         pass
 
@@ -30,7 +42,8 @@ def main():
     """main function"""
     wsgiref.handlers.CGIHandler().run(application)
 
-application = webapp.WSGIApplication([('/', MainPage)],
+application = webapp.WSGIApplication([('/', MainPage),
+                                      ('/admin/', AdminPage)],
                                      debug=True)
 
 if __name__ == '__main__':

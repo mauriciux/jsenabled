@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Admin Page</title>
+</head>
+<body>
+    NEW TAG:<br />
+    <form method="post" action="/admin/">
+        <input type="hidden" name="actiontype" value="1" />
+        Name: <input type="text" name="name" value="basketball" />
+        Description: <input type="text" name="description" value="NBA league" />
+        Owner: <input type="text" name="owner" value="all" />
+        Type: <input type="text" name="type" value="1" />
+        <input type="submit" value="submit" />
+    </form>
+    DELETE TAG:<br />
+    <form method="post" action="/admin/">
+        <input type="hidden" name="actiontype" value="2" />
+        Name: <input type="text" name="name" value="basketball" />
+        <input type="submit" value="submit" />
+    </form>
+</body>
+</html>
