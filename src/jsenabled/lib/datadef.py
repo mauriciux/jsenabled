@@ -21,7 +21,7 @@ class Tag(db.Model):
     name = db.StringProperty(multiline=False)
     description = db.StringProperty()
     type = db.IntegerProperty()
-    owner = db.StringProperty(multiline=False)
+    owner = db.StringListProperty()
 
 class BaseArticle(db.Model):
     """Basic article properties, should not be instantiate."""
