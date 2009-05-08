@@ -24,10 +24,12 @@ class AdminPage(GeneralPage):
     def get(self):
         self.response.out.write(pocket.render_template(config.TEMPLATE_PATH+'admin.html'))
     def post(self):
-        if self.request.get('actiontype') == "1":
+        if self.request.get('actiontype') == '1':
             service.add_to(datadef.Tag, name=self.request.get('name'), description=self.request.get('description'), owner=[self.request.get('owner')], type=int(self.request.get('type')))
-        elif self.request.get('actiontype') == "2":
+        elif self.request.get('actiontype') == '2':
             service.delete_from(datadef.Tag, name=self.request.get('name'))
+        elif self.request.get('actiontype') == '3':
+            service.modify_on(datadef.Tag, {'name': self.request.get('fromname')}, {'name': self.request.get('toname')})
 
 class MainPage(GeneralPage):
     def get(self):

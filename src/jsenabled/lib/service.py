@@ -32,7 +32,6 @@ def select_from(class_reference, all=False, custom_condition='', **attr_dict):
         _gql = 'WHERE ' + ' AND '.join([_key + '=:' + _key for _key in attr_dict])
         if custom_condition != '':
             _gql += ' AND ' + custom_condition
-        
         _entries = class_reference.gql(_gql, **attr_dict)
     return _entries
     
@@ -48,5 +47,29 @@ def delete_from(class_reference, custom_condition='', **attr_dict):
     _del = 0
     for _entry in _entries:
         _entry.delete()
-        _del+=1
+        _del += 1
     return _del
+
+def modify_on(class_reference, from_dict, to_dict, all=False, custom_condition='', custom_function=False):
+    """Modify a record of class_reference
+    Example: modify_on(User, {'name': 'Shaq'}, {'name': 'Yao'})
+             modify_on(User, {'name': 'Shaq'}, {'name': 'Yao'}, custom_condition='age>35')
+             modify_on(User, {}, {'team': 'Rockets'}, all=True)
+             modify_on(User, {}, {'age': lambda _age: _age+1}, all=True, custom_function=True)
+    Return modified record amount if succeeded, otherwise return 0.
+    """
+    _entries = select_from(class_reference, all, custom_condition, **from_dict)
+    _modify = 0
+    if custom_function:
+        for _entry in _entries:
+            for _key in to_dict:
+                _entry.__dict__['_'+_key] = to_dict[_key](_entry.__dict__['_'+_key])
+            _entry.put()
+            _modify += 1
+    else:
+        for _entry in _entries:
+            for _key in to_dict:
+                _entry.__dict__['_'+_key] = to_dict[_key]
+            _entry.put()
+            _modify += 1
+    return _modify
