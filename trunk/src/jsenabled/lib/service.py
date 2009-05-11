@@ -6,7 +6,6 @@ Service API module for JSenabled datastore manipulation. (ADSM)
 
 # datadef module
 from datadef import *
-import pocket, config
 
 # -- Datastore ADSM method --
 def add_to(class_reference, **attr_dict):
@@ -75,16 +74,3 @@ def modify_on(class_reference, from_dict, to_dict, all=False, custom_condition='
             _modify += 1
     return _modify
 
-# Basic validation funcs (service part)
-def is_exist(class_reference, **key_value):
-    """return True if value exists in class_reference.key"""
-    return True if select_from(class_reference, **key_value).get() else False
-
-# Instance validation funcs
-def is_user_id_valid(user_id):
-    """return True if this user_id is valid as follow:
-           1. contain only letters, numbers and underscores
-           2. 1 <= length < USER_ID_MAX_LENGTH
-           3. not used by other user.
-    """
-    return (pocket.search_pattern(user_id, r'^[a-zA-Z0-9_]+$') and pocket.in_period(user_id, 1, config.USER_ID_MAX_LENGTH, len) and (not is_exist(Tag, name=user_id)))
