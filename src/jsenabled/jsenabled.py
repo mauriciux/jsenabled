@@ -13,7 +13,7 @@ import wsgiref.handlers
 from google.appengine.ext import webapp
 
 # Custom library modules 
-from lib import config, service, pocket
+from lib import interface
 
 # -- CUSTOM CLASS DEFINITION --
 class GeneralPage(webapp.RequestHandler):
@@ -22,28 +22,30 @@ class GeneralPage(webapp.RequestHandler):
 # -- PAGE HANDLERS --
 class AdminPage(GeneralPage):
     def get(self):
-        self.response.out.write(pocket.render_template(config.TEMPLATE_PATH+'admin.html'))
+        self.response.out.write(interface.pocket.render_template(interface.config.TEMPLATE_PATH+'admin.html'))
     def post(self):
-        if self.request.get('actiontype') == '1':
+        if self.request.get('actiontype') == 'addtag':
             _data_dict={
                 'name': self.request.get('name'),
                 'description': self.request.get('description'),
                 'owner': [self.request.get('owner')],
                 'type': int(self.request.get('type')),
                 }
-            if pocket.Validator('validator_Tag').validate(**_data_dict):
-                service.add_to(service.Tag, **_data_dict)
+            if interface.add_tag(**_data_dict):
                 self.response.out.write('Addition successfully')
             else:
                 self.response.out.write('Validate failed!')
-        elif self.request.get('actiontype') == '2':
-            service.delete_from(service.Tag, name=self.request.get('name'))
-        elif self.request.get('actiontype') == '3':
-            service.modify_on(service.Tag, {'name': self.request.get('fromname')}, {'name': self.request.get('toname')})
+        elif self.request.get('actiontype') == 'deltag':
+            if interface.delete_tag(self.request.get('name')):
+                self.response.out.write('Deletion successfully')
+            else:
+                self.response.out.write('Validate failed!') 
+#        elif self.request.get('actiontype') == '3':
+#            service.modify_on(service.Tag, {'name': self.request.get('fromname')}, {'name': self.request.get('toname')})
 
 class MainPage(GeneralPage):
     def get(self):
-        _tags = service.select_from(service.Tag, all=True)
+        _tags = interface.select_tag(all=True)
         for _tag in _tags:
             self.response.out.write(_tag.to_xml())
     def post(self):

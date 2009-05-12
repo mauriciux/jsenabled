@@ -2,11 +2,15 @@
 Validator config module
 """
 
-validator_User = {
+vUser = {
     'name': {
         'maxLength': 15,
         'minLength': 6,
-        'available': 'User' 
+        'exist': {
+            'accept': False,
+            'module_name': 'User',
+            'attribute': 'name'
+            }
         },
     'password': {
         'maxLength': 15,
@@ -24,11 +28,15 @@ validator_User = {
         }
     }
 
-validator_Tag = {
+vTag = {
     'name': {
         'maxLength': 15,
         'minLength': 6,
-        'available': 'Tag'
+        'exist': {
+            'accept': False,
+            'module_name': 'Tag',
+            'attribute': 'name'
+            }
         },
     'description': {
         'maxLength': 250,
@@ -37,10 +45,17 @@ validator_Tag = {
     'type': {
         'minValue': 0,
         'maxValue': 10
+        },
+    'owner': {
+        'exist': {
+            'accept': True,
+            'module_name': 'User',
+            'attribute': 'name'
+            }
         }
     }
 
-validator_BaseArticle = {
+vBaseArticle = {
     'id_num': {
         'minValue': 0
         },
@@ -56,7 +71,7 @@ validator_BaseArticle = {
         }
     }
 
-validator_Variant = {
+vVariant = {
     'modify_date': {
         'mask': r'^[12]\d{3}\-[01]\d\-[0-3]\d$'
         },
@@ -65,19 +80,19 @@ validator_Variant = {
         },
     }
 
-validator_Comment = {
+vComment = {
     }
 
-validator_FormalArticle = {
+vFormalArticle = {
     'title': {
         'minLength': 1,
         'maxLength': 100
         }
     }
 
-validator_Archive = {
+vArchive = {
     }
 
-validator_LatestArticle = {
+vLatestArticle = {
     }
 
