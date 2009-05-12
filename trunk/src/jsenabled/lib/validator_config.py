@@ -3,13 +3,13 @@ Validator config module
 """
 
 vUser = {
-    'name': {
+    'user_id': {
         'maxLength': 15,
         'minLength': 6,
         'exist': {
             'accept': False,
             'module_name': 'User',
-            'attribute': 'name'
+            'attribute': 'user_id'
             }
         },
     'password': {
@@ -50,7 +50,7 @@ vTag = {
         'exist': {
             'accept': True,
             'module_name': 'User',
-            'attribute': 'name'
+            'attribute': 'user_id'
             }
         }
     }
