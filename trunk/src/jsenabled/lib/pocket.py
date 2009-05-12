@@ -52,21 +52,24 @@ class Validator(object):
             if not attr_dict.has_key(_key):
                 return False
             else:
-                _value=attr_dict[_key]
+                _value_list = attr_dict[_key]
             _rule=self.module[_key]
-            #minValue, maxValue, minLength, maxLength
-            _flag=(_flag and self.in_period(_value, _rule.get('minValue'), _rule.get('maxValue')))
-            _flag=(_flag and self.in_period(_value, _rule.get('minLength'), _rule.get('maxLength'), func=len))
-            #mask, useDefined
-            if _rule.has_key('mask'):
-                _flag=(_flag and self.search_pattern(_value, _rule['mask']))
-            if _rule.has_key('useDefined'):
-                _flag=(_flag and self.search_pattern(_value, self._reg_exp[_rule['useDefined']]))
-            #available
-            if _rule.has_key('available'):
-                _flag=(_flag and (not self.is_exist(service.__dict__[_rule['available']], **{_key: _value})))
-            if not _flag:
-                return False
+            if not _rule.get('multi', False):
+                _value_list = [_value_list]
+            for _value in _value_list:
+                #minValue, maxValue, minLength, maxLength
+                _flag=(_flag and self.in_period(_value, _rule.get('minValue'), _rule.get('maxValue')))
+                _flag=(_flag and self.in_period(_value, _rule.get('minLength'), _rule.get('maxLength'), func=len))
+                #mask, useDefined
+                if _rule.has_key('mask'):
+                    _flag=(_flag and self.search_pattern(_value, _rule['mask']))
+                if _rule.has_key('useDefined'):
+                    _flag=(_flag and self.search_pattern(_value, self._reg_exp[_rule['useDefined']]))
+                #available
+                if _rule.has_key('exist'):
+                    _flag=(_flag and (self.is_exist(service.__dict__[_rule['exist']['module_name']], **{_rule['exist']['attribute']: _value})==_rule['exist']['accept']))
+                if not _flag:
+                    return False
         return True
     def search_pattern(self, value, pattern):
         """Search pattern in value, return re.match object or None"""

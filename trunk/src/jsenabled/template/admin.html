@@ -5,7 +5,7 @@
 <body>
     NEW TAG:<br />
     <form method="post" action="/admin/">
-        <input type="hidden" name="actiontype" value="1" />
+        <input type="hidden" name="actiontype" value="addtag" />
         Name: <input type="text" name="name" value="basketball" />
         Description: <input type="text" name="description" value="NBA league" />
         Owner: <input type="text" name="owner" value="all" />
@@ -14,7 +14,7 @@
     </form>
     DELETE TAG:<br />
     <form method="post" action="/admin/">
-        <input type="hidden" name="actiontype" value="2" />
+        <input type="hidden" name="actiontype" value="deltag" />
         Name: <input type="text" name="name" value="basketball" />
         <input type="submit" value="submit" />
     </form>
