@@ -17,7 +17,7 @@ def add_to(class_reference, **attr_dict):
     for _key in attr_dict:
         _entry.__dict__['_'+_key] = attr_dict[_key]
     _entry.put()
-    return True
+    return _entry.key()
 
 def select_from(class_reference, all=False, custom_condition='', **attr_dict):
     """Select records from class_reference.
