@@ -10,14 +10,14 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 5 times in query history.
+# Unused in query history -- copied from input.
 - kind: Tag
   properties:
   - name: name
   - name: owner
   - name: type
 
-# Used 5 times in query history.
+# Unused in query history -- copied from input.
 - kind: Tag
   properties:
   - name: name

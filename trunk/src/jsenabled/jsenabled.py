@@ -36,10 +36,18 @@ class AdminPage(GeneralPage):
             else:
                 self.response.out.write('Validate failed!')
         elif self.request.get('actiontype') == 'deltag':
-            if interface.delete_tag(tag_name=self.request.get('name')):
+            if interface.delete_tag(name=self.request.get('name')):
                 self.response.out.write('Deletion successfully')
             else:
-                self.response.out.write('Deletion failed!') 
+                self.response.out.write('Deletion failed!')
+        if self.request.get('actiontype') == 'modifytag':
+            _data_dict={
+                'name': self.request.get('toname')
+            }
+            if interface.modify_tag(from_name=self.request.get('fromname'), **_data_dict):
+                self.response.out.write('Modify successfully')
+            else:
+                self.response.out.write('Modify failed!')
         elif self.request.get('actiontype') == 'adduser':
             _data_dict={
                 'user_id': self.request.get('user_id'),
@@ -57,6 +65,14 @@ class AdminPage(GeneralPage):
                 self.response.out.write('Deletion successfully')
             else:
                 self.response.out.write('Deletion failed!') 
+        if self.request.get('actiontype') == 'modifyuser':
+            _data_dict={
+                'user_id': self.request.get('toname')
+            }
+            if interface.modify_user(from_user_id=self.request.get('fromname'), **_data_dict):
+                self.response.out.write('Modify successfully')
+            else:
+                self.response.out.write('Modify failed!')
 
 class MainPage(GeneralPage):
     def get(self):
