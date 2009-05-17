@@ -65,7 +65,7 @@ class AdminPage(GeneralPage):
                 self.response.out.write('Deletion successfully')
             else:
                 self.response.out.write('Deletion failed!') 
-        if self.request.get('actiontype') == 'modifyuser':
+        elif self.request.get('actiontype') == 'modifyuser':
             _data_dict={
                 'user_id': self.request.get('toname')
             }
@@ -73,6 +73,27 @@ class AdminPage(GeneralPage):
                 self.response.out.write('Modify successfully')
             else:
                 self.response.out.write('Modify failed!')
+        elif self.request.get('actiontype') == 'addlatestarticle':
+            _data_dict={
+                'id_num': self.request.get('id_num'),
+                'post_author_ip': '127.0.0.1',
+                'post_author_key': self.request.get('author'),
+                'latest_content_key': self.request.get('content'),
+                'post_date': self.request.get('date'),
+                'type': 1,
+                'modify_date': '12-01-1999',
+                'modify_author_key': self.request.get('author'),
+                'modify_author_ip': '127.0.0.1',
+                'traceback_key': self.request.get('content'),
+                'title': self.request.get('title'),
+                'comment_list': [],
+                'tag_list': []
+                }
+            if interface.add_latestarticle(**_data_dict):
+                self.response.out.write('Add successfully')
+            else:
+                self.response.out.write('Validate failed!')
+
 
 class MainPage(GeneralPage):
     def get(self):
