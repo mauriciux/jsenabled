@@ -20,26 +20,34 @@ def add_tag(**attr_dict):
         return True
     return False
 
-def delete_tag(tag_key=None, tag_name=None):
-    if tag_key:
-        return service.Tag.get_by_key_name(tag_key).delete()
-    if tag_name:
-        return service.delete_from(service.Tag, name=tag_name)
+def delete_tag(key=None, name=None):
+    if key:
+        return service.Tag.get_by_key_name(key).delete()
+    if name:
+        return service.delete_from(service.Tag, name=name)
 
-def select_tag(tag_key=None, tag_name=None, all=False):
+def select_tag(key=None, name=None, all=False):
     if all:
         return service.select_from(service.Tag, all=True)
-    if tag_key:
-        return service.Tag.get_by_key_name(tag_key)
-    if tag_name:
-        return service.select_from(service.Tag, name=tag_name)
+    if key:
+        return service.Tag.get_by_key_name(key)
+    if name:
+        _entry = service.select_from(service.Tag, name=name)
+        return (_entry.get() if _entry else None)
     return None
 
-#def modify_tag(from_dict, to_dict):
-#    _validator = pocket.Validator('vTag')
-#    if _validator.validate(
-#      _entries = service.select_from(service.Tag, from_dict)
-#    return service.modify_on(service.Tag, from_dict, to_dict)
+def modify_tag(from_key=None, from_name=None, **attr_dict):
+    _validator = pocket.Validator('vTag')
+    _entry = select_tag(key=from_key, name=from_name)
+    if _entry:
+        _dict = _entry.__dict__
+        _from_dict = _entry.properties()
+        for _key in _from_dict:
+            _from_dict[_key] = _dict['_'+_key]
+        _to_dict = dict(_from_dict)
+        _to_dict.update(attr_dict)
+        return (service.modify_on(service.Tag, _from_dict, _to_dict) if _validator.validate(**_to_dict) else 0)
+    return 0 
 
 # User
 def add_user(**attr_dict):
@@ -49,25 +57,34 @@ def add_user(**attr_dict):
         return True
     return False
 
-def delete_user(user_key=None, user_id=None):
-    if user_key:
-        return service.User.get_by_key_name(user_key).delete()
+def delete_user(key=None, user_id=None):
+    if key:
+        return service.User.get_by_key_name(key).delete()
     if user_id:
         return service.delete_from(service.User, user_id=user_id)
 
-def select_user(user_key=None, user_id=None, all=False):
+def select_user(key=None, user_id=None, all=False):
     if all:
         return service.select_from(service.User, all=True)
-    if user_key:
-        return service.User.get_by_key_name(user_key)
+    if key:
+        return service.User.get_by_key_name(key)
     if user_id:
-        return service.select_from(service.User, user_id=user_id)
+        _entry = service.select_from(service.User, user_id=user_id)
+        return (_entry.get() if _entry else None)
     return None
 
-#def modify_user(from_dict, to_dict):
-#    if service.select_from(service.User, **to_dict):
-#        return 0 
-#    return service.modify_on(service.User, from_dict, to_dict)
+def modify_user(from_key=None, from_user_id=None, **attr_dict):
+    _validator = pocket.Validator('vUser')
+    _entry = select_user(key=from_key, user_id=from_user_id)
+    if _entry:
+        _dict = _entry.__dict__
+        _from_dict = _entry.properties()
+        for _key in _from_dict:
+            _from_dict[_key] = _dict['_'+_key]
+        _to_dict = dict(_from_dict)
+        _to_dict.update(attr_dict)
+        return (service.modify_on(service.User, _from_dict, _to_dict) if _validator.validate(**_to_dict) else 0)
+    return 0 
 
 # Comment
 def add_comment(ancestor_key, **attr_dict):
