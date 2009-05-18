@@ -19,53 +19,69 @@ from lib import interface
 class GeneralPage(webapp.RequestHandler):
     pass
 
+# -- API HANDLERS --
+# User
+class AddUser(GeneralPage):
+    def get(self):
+        pass
+    def post(self):
+        _data = interface.service.make_entity_dict(interface.service.User, {}, self.request)
+        self.response.out.write(interface.pocket.toggle(interface.add_user(**_data), 1, 0))
+
+class DelUser(GeneralPage):
+    def get(self):
+        pass
+    def post(self):
+        _data = {'user_id': self.request.get('user_id')}
+        self.response.out.write(interface.pocket.toggle(interface.delete_user(**_data), 1, 0))
+
+class ModifyUser(GeneralPage):
+    def get(self):
+        pass
+    def post(self):
+        _data = interface.pocket.make_transection(interface.service.User.properties(), self.request) 
+        self.response.out.write(interface.pocket.toggle(interface.modify_user(from_user_id=self.request.get('from_user_id'), **_data), 1, 0))
+
+# Tag 
+class AddTag(GeneralPage):
+    def get(self):
+        pass
+    def post(self):
+        _data = interface.service.make_entity_dict(interface.service.Tag, {}, self.request)
+        _flag = True
+        _owners = []
+        for _owner in _data['owner'].split(','):
+            _key = interface.service.get_key(interface.service.User, user_id = _owner)
+            if _key:
+                _owners.append(_key)
+            else:
+                _flag = False
+        if _flag:
+            _data['owner'] = _owners
+            self.response.out.write(interface.pocket.toggle(interface.add_tag(**_data), 1, 0))
+        else:
+            self.response.out.write(0)
+
+class DelTag(GeneralPage):
+    def get(self):
+        pass
+    def post(self):
+        _data = {'name': self.request.get('name')}
+        self.response.out.write(interface.pocket.toggle(interface.delete_tag(**_data), 1, 0))
+
+class ModifyTag(GeneralPage):
+    def get(self):
+        pass
+    def post(self):
+        _data = interface.pocket.make_transection({'name': None,'description': None}, self.request)
+        self.response.out.write(interface.pocket.toggle(interface.modify_tag(from_name=self.request.get('from_name'), **_data), 1, 0))
+
 # -- PAGE HANDLERS --
 class AdminPage(GeneralPage):
     def get(self):
         self.response.out.write(interface.pocket.render_template(interface.config.TEMPLATE_PATH+'admin.html'))
     def post(self):
-        if self.request.get('actiontype') == 'addtag':
-            _data_dict={
-                'name': self.request.get('name'),
-                'description': self.request.get('description'),
-                'owner': [self.request.get('owner')],
-                'type': int(self.request.get('type')),
-                }
-            if interface.add_tag(**_data_dict):
-                self.response.out.write('Addition successfully')
-            else:
-                self.response.out.write('Validate failed!')
-        elif self.request.get('actiontype') == 'deltag':
-            if interface.delete_tag(name=self.request.get('name')):
-                self.response.out.write('Deletion successfully')
-            else:
-                self.response.out.write('Deletion failed!')
-        if self.request.get('actiontype') == 'modifytag':
-            _data_dict={
-                'name': self.request.get('toname')
-            }
-            if interface.modify_tag(from_name=self.request.get('fromname'), **_data_dict):
-                self.response.out.write('Modify successfully')
-            else:
-                self.response.out.write('Modify failed!')
-        elif self.request.get('actiontype') == 'adduser':
-            _data_dict={
-                'user_id': self.request.get('user_id'),
-                'type': int(self.request.get('type')),
-                'password': self.request.get('password'),
-                'article_count': int(self.request.get('article_count')),
-                'email': self.request.get('email'),
-                }
-            if interface.add_user(**_data_dict):
-                self.response.out.write('Addition successfully')
-            else:
-                self.response.out.write('Validate failed!')
-        elif self.request.get('actiontype') == 'deluser':
-            if interface.delete_user(user_id=self.request.get('user_id')):
-                self.response.out.write('Deletion successfully')
-            else:
-                self.response.out.write('Deletion failed!') 
-        elif self.request.get('actiontype') == 'modifyuser':
+        if self.request.get('actiontype') == 'modifyuser':
             _data_dict={
                 'user_id': self.request.get('toname')
             }
@@ -112,7 +128,13 @@ def main():
     wsgiref.handlers.CGIHandler().run(application)
 
 application = webapp.WSGIApplication([('/', MainPage),
-                                      ('/admin/', AdminPage)],
+                                      ('/admin/', AdminPage),
+                                      ('/adduser/', AddUser),
+                                      ('/deluser/', DelUser),
+                                      ('/modifyuser/', ModifyUser),
+                                      ('/addtag/', AddTag),
+                                      ('/deltag/', DelTag),
+                                      ('/modifytag/', ModifyTag)],
                                      debug=True)
 
 if __name__ == '__main__':

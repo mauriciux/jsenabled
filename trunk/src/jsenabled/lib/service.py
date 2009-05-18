@@ -17,7 +17,7 @@ def add_to(class_reference, **attr_dict):
     for _key in attr_dict:
         _entry.__dict__['_'+_key] = attr_dict[_key]
     _entry.put()
-    return _entry.key()
+    return str(_entry.key())
 
 def select_from(class_reference, all=False, custom_condition='', **attr_dict):
     """Select records from class_reference.
@@ -73,4 +73,23 @@ def modify_on(class_reference, from_dict, to_dict, all=False, custom_condition='
             _entry.put()
             _modify += 1
     return _modify
+
+# -- Other Method --
+def get_key(class_reference, **attr_dict):
+    _entries = select_from(class_reference, **attr_dict)
+    if _entries.count() != 1:
+        return False 
+    else:
+        return str(_entries.get().key())
+
+def get_by_key(class_reference, _key, _attr):
+    _entries = class_reference.get(_key)
+    return (_entries.__dict__['_'+_attr] if _entries else None)
+
+def make_entity_dict(class_reference, template, partial_dict):
+    """Return an entire dict of a specific class_reference, with value that not in partial_dict value in template.""" 
+    _data = class_reference.properties()
+    for _key in _data:
+        _data[_key] = partial_dict.get(_key, template.get(_key, '')) 
+    return _data
 
