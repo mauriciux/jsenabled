@@ -26,21 +26,21 @@ class AddUser(GeneralPage):
         pass
     def post(self):
         _data = interface.service.make_entity_dict(interface.service.User, {}, self.request)
-        self.response.out.write(interface.pocket.toggle(interface.add_user(**_data), 1, 0))
+        self.response.out.write(interface.pocket.toggle(interface.add_user(**_data), interface.config.SUCCEEDED, interface.config.FAILED))
 
 class DelUser(GeneralPage):
     def get(self):
         pass
     def post(self):
         _data = {'user_id': self.request.get('user_id')}
-        self.response.out.write(interface.pocket.toggle(interface.delete_user(**_data), 1, 0))
+        self.response.out.write(interface.pocket.toggle(interface.delete_user(**_data), interface.config.SUCCEEDED, interface.config.FAILED))
 
 class ModifyUser(GeneralPage):
     def get(self):
         pass
     def post(self):
         _data = interface.pocket.make_transection(interface.service.User.properties(), self.request) 
-        self.response.out.write(interface.pocket.toggle(interface.modify_user(from_user_id=self.request.get('from_user_id'), **_data), 1, 0))
+        self.response.out.write(interface.pocket.toggle(interface.modify_user(from_user_id=self.request.get('from_user_id'), **_data), interface.config.SUCCEEDED, interface.config.FAILED))
 
 # Tag 
 class AddTag(GeneralPage):
@@ -58,38 +58,30 @@ class AddTag(GeneralPage):
                 _flag = False
         if _flag:
             _data['owner'] = _owners
-            self.response.out.write(interface.pocket.toggle(interface.add_tag(**_data), 1, 0))
+            self.response.out.write(interface.pocket.toggle(interface.add_tag(**_data), interface.config.SUCCEEDED, interface.config.FAILED))
         else:
-            self.response.out.write(0)
+            self.response.out.write(interface.config.FAILED)
 
 class DelTag(GeneralPage):
     def get(self):
         pass
     def post(self):
         _data = {'name': self.request.get('name')}
-        self.response.out.write(interface.pocket.toggle(interface.delete_tag(**_data), 1, 0))
+        self.response.out.write(interface.pocket.toggle(interface.delete_tag(**_data), interface.config.SUCCEEDED, interface.config.FAILED))
 
 class ModifyTag(GeneralPage):
     def get(self):
         pass
     def post(self):
         _data = interface.pocket.make_transection({'name': None,'description': None}, self.request)
-        self.response.out.write(interface.pocket.toggle(interface.modify_tag(from_name=self.request.get('from_name'), **_data), 1, 0))
+        self.response.out.write(interface.pocket.toggle(interface.modify_tag(from_name=self.request.get('from_name'), **_data), interface.config.SUCCEEDED, interface.config.FAILED))
 
 # -- PAGE HANDLERS --
 class AdminPage(GeneralPage):
     def get(self):
         self.response.out.write(interface.pocket.render_template(interface.config.TEMPLATE_PATH+'admin.html'))
     def post(self):
-        if self.request.get('actiontype') == 'modifyuser':
-            _data_dict={
-                'user_id': self.request.get('toname')
-            }
-            if interface.modify_user(from_user_id=self.request.get('fromname'), **_data_dict):
-                self.response.out.write('Modify successfully')
-            else:
-                self.response.out.write('Modify failed!')
-        elif self.request.get('actiontype') == 'addlatestarticle':
+        if self.request.get('actiontype') == 'addlatestarticle':
             _data_dict={
                 'id_num': self.request.get('id_num'),
                 'post_author_ip': '127.0.0.1',
