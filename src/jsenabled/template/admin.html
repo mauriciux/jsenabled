@@ -4,48 +4,43 @@
 </head>
 <body>
     NEW TAG:<br />
-    <form method="post" action="/admin/">
-        <input type="hidden" name="actiontype" value="addtag" />
+    <form method="post" action="/addtag/">
         Name: <input type="text" name="name" value="basketball" />
         Description: <input type="text" name="description" value="NBA league" />
-        Owner: <input type="text" name="owner" value="all" />
+        Owner: <input type="text" name="owner" value="alfred" />
         Type: <input type="text" name="type" value="1" />
         <input type="submit" value="submit" />
     </form>
     DELETE TAG:<br />
-    <form method="post" action="/admin/">
-        <input type="hidden" name="actiontype" value="deltag" />
+    <form method="post" action="/deltag/">
         Name: <input type="text" name="name" value="basketball" />
         <input type="submit" value="submit" />
     </form>
     MODIFY TAG:<br />
-    <form method="post" action="/admin/">
+    <form method="post" action="/modifytag/">
         <input type="hidden" name="actiontype" value="modifytag" />
-        From Name: <input type="text" name="fromname" value="basketball" />
-        To Name: <input type="text" name="toname" value="football" />
+        From Name: <input type="text" name="from_name" value="basketball" />
+        To Name: <input type="text" name="name" value="football" />
         <input type="submit" value="submit" />
     </form>
     NEW USER:<br />
-    <form method="post" action="/admin/">
-        <input type="hidden" name="actiontype" value="adduser" />
+    <form method="post" action="/adduser/">
         USER_ID: <input type="text" name="user_id" value="alfred" />
         EMAIL: <input type="text" name="email" value="tuo.yuwen@163.com" />
-        PASSWORD: <input type="password" name="password" value="good" />
+        PASSWORD: <input type="password" name="password" value="goodgood" />
         TYPE: <input type="text" name="type" value="1" />
         ARTICLE_COUNT: <input type="text" name="article_count" value="100" />
         <input type="submit" value="submit" />
     </form>
     DELETE USER:<br />
-    <form method="post" action="/admin/">
-        <input type="hidden" name="actiontype" value="deluser" />
+    <form method="post" action="/deluser/">
         USER_ID: <input type="text" name="user_id" value="alfred" />
         <input type="submit" value="submit" />
     </form>
     MODIFY USER:<br />
-    <form method="post" action="/admin/">
-        <input type="hidden" name="actiontype" value="modifyuser" />
-        From USER_ID: <input type="text" name="fromname" value="alfred" />
-        To USER_ID: <input type="text" name="toname" value="stauren" />
+    <form method="post" action="/modifyuser/">
+        From USER_ID: <input type="text" name="from_user_id" value="alfred" />
+        To USER_ID: <input type="text" name="user_id" value="stauren" />
         <input type="submit" value="submit" />
     </form>
 

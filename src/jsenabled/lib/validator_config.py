@@ -20,10 +20,12 @@ vUser = {
         'useDefined': 'email'
         },
     'type': {
+        'value_type': int,
         'minValue': 0,
         'maxValue': 10
         },
     'article_count': {
+        'value_type': int,
         'minValue': 0,
         }
     }
@@ -40,13 +42,18 @@ vTag = {
         },
     'description': {
         'maxLength': 250,
-        'useDefined': 'email'
         },
     'type': {
+        'value_type': int,
         'minValue': 0,
         'maxValue': 10
         },
     'owner': {
+        'multi': True,
+        'key': {
+            'module_name': 'User',
+            'attribute': 'user_id'
+            },
         'exist': {
             'accept': True,
             'module_name': 'User',
@@ -57,6 +64,7 @@ vTag = {
 
 vBaseArticle = {
     'id_num': {
+        'value_type': int,
         'minValue': 0
         },
     'post_author_ip': {
@@ -66,6 +74,7 @@ vBaseArticle = {
         'mask': r'^[12]\d{3}\-[01]\d\-[0-3]\d$'
         },
     'type': {
+        'value_type': int,
         'minValue': 0,
         'maxValue': 10
         }

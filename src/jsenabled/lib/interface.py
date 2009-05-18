@@ -15,8 +15,9 @@ import config, service, pocket
 # Tag
 def add_tag(**attr_dict):
     _validator = pocket.Validator('vTag')
-    if _validator.validate(**attr_dict):
-        service.add_to(service.Tag, **attr_dict)
+    _dict = _validator.validate(**attr_dict)
+    if _dict:
+        service.add_to(service.Tag, **_dict)
         return True
     return False
 
@@ -52,8 +53,9 @@ def modify_tag(from_key=None, from_name=None, **attr_dict):
 # User
 def add_user(**attr_dict):
     _validator = pocket.Validator('vUser')
-    if _validator.validate(**attr_dict):
-        service.add_to(service.User, **attr_dict)
+    _dict = _validator.validate(**attr_dict)
+    if _dict:
+        service.add_to(service.User, **_dict)
         return True
     return False
 

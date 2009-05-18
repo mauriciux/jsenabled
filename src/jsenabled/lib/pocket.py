@@ -24,6 +24,20 @@ def render_template(template_path_from_root, **template_argv):
     _rendered = template.render(template_path_from_root, template_argv)
     return _rendered
 
+# make transection of 2 dicts
+def make_transection(dict1, dict2):
+    """Return transection of 2 dicts, value based on the second dict."""
+    _res = {}
+    for _key in dict1:
+        if dict2.get(_key, None):
+            _res[_key] = dict2.get(_key)
+    return _res
+
+# toggle
+def toggle(condition, if_true, if_false):
+    """Simply return if_true if condition is true, else return if_false"""
+    return (if_true if condition else if_false)
+
 # Validator Class
 class Validator(object):
     """Validator class.
@@ -47,6 +61,7 @@ class Validator(object):
     def __init__(self, module_name):
         self.module = validator_config.__dict__[module_name]
     def validate(self, **attr_dict):
+        _res = {}
         for _key in self.module:
             _flag=True
             if not attr_dict.has_key(_key):
@@ -54,9 +69,22 @@ class Validator(object):
             else:
                 _value_list = attr_dict[_key]
             _rule=self.module[_key]
+            _multi = True
             if not _rule.get('multi', False):
+                _multi = False
                 _value_list = [_value_list]
+            _reslist = []
             for _value in _value_list:
+                #key
+                if _rule.has_key('key'):
+                    _vkey = _value
+                    _value = service.get_by_key(service.__dict__[_rule['key']['module_name']], _value, _rule['key']['attribute'])
+                #type
+                if _rule.has_key('value_type'):
+                    try:
+                        _value = _rule['value_type'](_value)
+                    except:
+                         return False
                 #minValue, maxValue, minLength, maxLength
                 _flag=(_flag and self.in_period(_value, _rule.get('minValue'), _rule.get('maxValue')))
                 _flag=(_flag and self.in_period(_value, _rule.get('minLength'), _rule.get('maxLength'), func=len))
@@ -70,7 +98,11 @@ class Validator(object):
                     _flag=(_flag and (self.is_exist(service.__dict__[_rule['exist']['module_name']], **{_rule['exist']['attribute']: _value})==_rule['exist']['accept']))
                 if not _flag:
                     return False
-        return True
+                _value = _vkey if _rule.has_key('key') else _value
+             #       _value = service.get_key(service.__dict__[_rule['key']['module_name']], **{_rule['key']['attribute']: _value})
+                _reslist.append(_value)
+            _res[_key] = (_reslist if _multi else _reslist[0])
+        return _res
     def search_pattern(self, value, pattern):
         """Search pattern in value, return re.match object or None"""
         _pattern = re.compile(pattern)
@@ -90,3 +122,4 @@ class Validator(object):
         WARNING: THIS METHOD NEED service.py MODULE
         """
         return True if service.select_from(class_reference, **key_value).get() else False
+
