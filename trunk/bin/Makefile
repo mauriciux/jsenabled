@@ -13,7 +13,8 @@ update_du:
 	(cd ${googleapp_dir} && ./appcfg.py update ${du_dir})
 
 get_du_logs:
-	(cd ${googleapp_dir} && ./appcfg.py request_logs ${du_dir} ../../du_logs.txt && cat ../../du_logs.txt >> ../../log/du_logs.txt && rm ../../du_logs.txt)
+	#(cd ${googleapp_dir} && ./appcfg.py request_logs ${du_dir} ../../du_logs.txt && cat ../../du_logs.txt >> ../../log/du_logs.txt && rm ../../du_logs.txt)
+	(cd ${googleapp_dir} && ./appcfg.py -a request_logs ${du_dir} ../../log/du_logs.txt)
 
 clean_htdocs:
 	rm -rf ${ga_htdocs_dir};
